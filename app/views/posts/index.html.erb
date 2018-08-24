@@ -1,11 +1,21 @@
 <div class="container">
   <div class="row">
-    <div class="col-sm-8 offset-md-2">
+    <div class="col-sm-8 offset-md-2" id="initcard">
+
+        <div class="container">
+          <% flash.each do |key, value| %>
+            <div class="alert alert-<%= key %>"><%= value %></div>
+          <% end %>
+        </div>
+          
         <% @posts.each do |post|%>
             <h1><%= link_to post.title, post %></h1>
-            <p><strong>Publicado por:</strong> <%=post.user.email%> <strong>Fecha:</strong> <%=post.created_at.strftime("%d-%m-%Y")%> </p>
-            <p><%=post.body.truncate(100, separator: ' ')%></p>
-        <%end%>
+            <p id="info"><strong>Publicado por:</strong> <%=post.user.email%> <strong>hace </strong> <%= time_ago_in_words(post.created_at) %></p>
+            <p><%=post.body.truncate(250, separator: ' ')%></p>
+          <% if user_signed_in? && post.user == current_user %>
+            <p><%= link_to "&#x270E; Editar ".html_safe, edit_post_path(post) %> <%= link_to "&#128465; Elminar ".html_safe, post, method: :delete %></p>
+          <%end%>
+      <%end%>
     </div>
   </div>
 </div>

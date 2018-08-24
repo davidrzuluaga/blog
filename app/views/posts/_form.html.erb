@@ -1,6 +1,8 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-8 offset-md-2">
+    <div class="col-md-8 offset-md-2" id="initcard">
+      
+      <h1><%=action%> Entrada</h1>
     
         <% if @post.errors.any? %>
           <div class="alert alert-danger">
@@ -11,7 +13,6 @@
             </ul>
           </div>
         <% end %>
-      
       <%= form_for @post do |f| %>
         <div class="form-group">
           <%= f.text_field :title, class: "form-control input-lg", placeholder: "Ingresa el titulo" %>

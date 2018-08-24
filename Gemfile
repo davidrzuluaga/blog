@@ -17,6 +17,7 @@ gem 'uglifier', '>= 1.3.0'
 # gem 'mini_racer', platforms: :ruby
 gem 'devise'
 gem 'annotate'
+gem 'pry'
 gem 'redcarpet'
 gem 'bootstrap', '~> 4.1.3'
 gem 'jquery-rails'

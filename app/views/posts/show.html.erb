@@ -1,23 +1,35 @@
 <div class="container">
   <div class="row">
-    <div class="col-sm-8 offset-md-2">
+    <div class="col-sm-8 offset-md-2" id="initcard">
       <div class="content">
       <p><%= link_to "Volver", posts_path %></p>
           <h1><%=@post.title%></h1>
           <%= markdown(@post.body) %>
       </div>
-      <div class="comments">
+      <div class="comments" id="commentseparation">
+      <strong>Comentarios</strong>
         <% @post.comments.each do |comment| %>
-        <div class="card">
-          <div class="card-header">
-            <%= comment.user.email %> comentó hace <%= comment.created_at %>
+          <div class="card" id="commentseparation">
+            <div class="card-header">
+              <%= comment.user.email %> comentó hace <%= comment.created_at %>
+            </div>
+            <div class="card-body">
+              <p><%= markdown(comment.content)%></p>
+            </div>
           </div>
-          <div class="card-body">
-            <p><%= markdown(comment.content)%></p>
-          </div>
-        </div>
         <% end%>
+      <% if user_signed_in? %>
+        <div class="newcomment" id="commentseparation">
 
+          <%= form_for @post.comments.build do |f| %>
+            <%= f.hidden_field :post_id %>
+            <%= f.text_area :content, class:"form-control", id:"FormControlTextarea1", rows:"2" %>
+            <%= f.submit 'Comment', class: 'btn btn-secondary btn-sm', id:"card" %>
+          <% end %>
+      <% else %>
+            <p id="commentseparation">Por favor <%= link_to 'Inicia Sesión', new_user_session_path %> o <%= link_to 'Registrate', new_user_registration_path %> para comentar</p>
+      <% end %>
+        </div>
       </div>
     </div>
   </div>
