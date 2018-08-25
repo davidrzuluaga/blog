@@ -3,6 +3,11 @@
     <div class="col-sm-8 offset-md-2" id="initcard">
       <div class="content">
       <p><%= link_to "Volver", posts_path %></p>
+          <div class="container">
+            <% flash.each do |key, value| %>
+              <div class="alert alert-<%= key.empty? ? "success" : key %>"><%= value %></div>  
+            <% end %>
+          </div>
           <h1><%=@post.title%></h1>
           <%= markdown(@post.body) %>
       </div>
@@ -24,10 +29,10 @@
           <%= form_for @post.comments.build do |f| %>
             <%= f.hidden_field :post_id %>
             <%= f.text_area :content, class:"form-control", id:"FormControlTextarea1", rows:"2" %>
-            <%= f.submit 'Comment', class: 'btn btn-secondary btn-sm', id:"card" %>
+            <div id="commentseparation"><%= f.submit 'Comment', class: 'btn btn-secondary btn-sm', id:"card" %></div>
           <% end %>
       <% else %>
-            <p id="commentseparation">Por favor <%= link_to 'Inicia Sesión', new_user_session_path %> o <%= link_to 'Registrate', new_user_registration_path %> para comentar</p>
+            <div id="commentseparation"><p>Por favor <%= link_to 'Inicia Sesión', new_user_session_path %> o <%= link_to 'Registrate', new_user_registration_path %> para comentar</p></div>
       <% end %>
         </div>
       </div>
